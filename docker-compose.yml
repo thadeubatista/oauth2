@@ -1,0 +1,76 @@
+version: '3.7'
+networks:
+  production-network:
+    driver: bridge    
+
+services:
+  arce_db_compose:
+    container_name: arce_db_compose
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: admin
+    image: mysql
+    ports:
+      - "3306"
+    networks:
+      - production-network
+
+  nginx:
+    build:
+      dockerfile: ./nginx.dockerfile
+      context: ./config_client
+    image: projetoarce/nginx
+    container_name: nginx
+    ports:
+      - "8080:3000"
+    networks:
+      - production-network
+    depends_on:
+      - arce_db_compose
+      - node1
+      - node2
+      - node3
+
+  node1:
+    build:
+      dockerfile: ./api.dockerfile
+      context: ./config_api
+    image: projetoarce-api
+    container_name: node1
+    ports:
+      - "8080"
+    networks:
+      - production-network
+    depends_on:
+      - arce_db_compose
+    command: ./wait-for-it.sh a java -jar projetoarce-1.0.0.jar
+
+  node2:
+    build:
+      dockerfile: ./api.dockerfile
+      context: ./config_api
+    image: projetoarce-api
+    container_name: node2
+    ports:
+      - "8080"
+    networks:
+      - production-network
+    depends_on:
+      - arce_db_compose
+    command: ./wait-for-it.sh a java -jar projetoarce-1.0.0.jar
+
+  node3:
+    build:
+      dockerfile: ./api.dockerfile
+      context: ./config_api
+    image: projetoarce-api
+    container_name: node3
+    ports:
+      - "8080"
+    networks:
+      - production-network
+    depends_on:
+      - arce_db_compose
+    command: ./wait-for-it.sh a java -jar projetoarce-1.0.0.jar
+  
+

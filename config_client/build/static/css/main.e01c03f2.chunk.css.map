@@ -1,0 +1,1 @@
+{"version":3,"sources":["styles.css"],"names":[],"mappings":"AAAA,WACI,WAAY,CACZ,YAAa,CACb,kBAAmB,CACnB,YAAa,CACb,kBAAmB,CACnB,sBAAuB,CACvB,kBACJ,CARA,mBACI,wBACF,CAEA,+BACE,6BACF","file":"main.e01c03f2.chunk.css","sourcesContent":[".MuiTableCell-root {\n    padding: 0 70px !important;\n  }\n  \n  .MuiTableCell-root:first-child {\n    padding-left: 0 50px !important;\n  }"]}
